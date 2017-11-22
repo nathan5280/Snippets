@@ -1,0 +1,6 @@
+Install npm from nodejs.org
+sudo npm install -g bower
+bower install angular
+
+Having problems getting the angular piece to work.
+Moving on as HTML, ... isn't my primary goal.
