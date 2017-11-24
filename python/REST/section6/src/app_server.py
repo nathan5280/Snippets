@@ -2,12 +2,13 @@ from flask import Flask
 from flask_jwt import JWT
 from flask_restful import Api
 
-from resources.Store import Store
-from resources.StoreList import StoreList
-from resources.Item import Item
-from resources.ItemList import ItemList
-from resources.User import UserRegister
-from util.security import authenticate, identity
+from server.resources.Store import Store
+from server.resources.StoreList import StoreList
+from server.resources.Item import Item
+from server.resources.ItemList import ItemList
+from server.resources.User import UserRegister
+from server.util.security import authenticate, identity
+from server.util.db import db, DBMgr
 
 
 def main():
@@ -18,7 +19,6 @@ def main():
     api = Api(app)
 
     # Import here to avoid circular import?
-    from util.db import db
     db.init_app(app)
 
     # Leverage flask to call this method before handling any requests.
@@ -35,6 +35,9 @@ def main():
     api.add_resource(ItemList, '/items')
 
     api.add_resource(UserRegister, '/register')
+
+    # Clear the DB to support testing.
+    api.add_resource(DBMgr, '/clear')
 
     app.run(debug=True, port=5000)
 
