@@ -32,3 +32,9 @@ def test_register_second_time(host):
 
     r = requests.post(end_point_url, json=payload)
     assert r.status_code == 400
+
+
+def test_add_store(host):
+    end_point_url = '/'.join((host, 'store', 'Store 1'))
+    r = requests.post(end_point_url)
+    assert r.status_code == 200

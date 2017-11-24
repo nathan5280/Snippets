@@ -19,6 +19,9 @@ class DBMgr(Resource):
         query = "DELETE FROM items"
         cursor.execute(query)
 
+        query = "DELETE FROM stores"
+        cursor.execute(query)
+
         query = "DELETE FROM users"
         cursor.execute(query)
 
