@@ -1,8 +1,16 @@
+*Note*  This document is not complete.   
+It needs information about nvidia-docker ...
+
 # Docker for Deep Learning
 This set of notes documents the process for installing Docker on Ubuntu
 to support Deep Learning with Tensorflow and Nvidia GPU.  The goal
 is to get a Docker container set up on a local machine with an 
 Nvidia GPU and then be able to deploy it to AWS.
+
+Docker Documentation
+```commandline
+docs.docker.com
+```
 
 ## Install Docker
 Following the steps in the Docker installation manual for Docker CE
@@ -15,12 +23,17 @@ Follow post installation steps.
 https://docs.docker.com/install/linux/linux-postinstall/
 ```
 
+## Install Docker Machine
+```commandline
+https://docs.docker.com/machine/install-machine/
+```
+
 ## Install Docker Compose
 ```commandline
 https://docs.docker.com/compose/install/
 ```
 
-## Inststall AWS Elastic Container Storage CLI
+## Install AWS Elastic Container Storage CLI
 ```commandline
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
 ```
@@ -53,5 +66,7 @@ docker stop $(docker ps -q)
 * **run -d** Detach the container from the shell it is started from.
 * **run --name** Name the container
 * **run -p <to-port>:<from-port>** Map the application exposed port to an exposed port.
+* **run --env** Pass environment variables to the container.
+
  
 
