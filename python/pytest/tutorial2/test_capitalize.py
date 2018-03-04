@@ -1,3 +1,4 @@
+# https://semaphoreci.com/community/tutorials/testing-python-applications-with-pytest
 import pytest
 
 
@@ -17,7 +18,7 @@ def test_capital_case2():
     assert capital_case('All lower') == 'All lower'
 
 
-def test_capital_case3():
+def test_wrong_type():
     # Check for passing something other than a string.
     with pytest.raises(TypeError):
         capital_case(1)
