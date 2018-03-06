@@ -1,4 +1,4 @@
-pass_tests = True
+pass_tests = False
 
 class TestClass(object):
     def test_one(self):
@@ -9,6 +9,8 @@ class TestClass(object):
         x = 'hello'
 
         if pass_tests:
+            print("1 == 1")
             assert 1 == 1
         else:
-            assert hasattr(x, 'check')
+            print("hasattr")
+            assert hasattr(x, 'count')
