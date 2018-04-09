@@ -34,9 +34,9 @@ https://git.blender.org/gitweb/gitweb.cgi/blender.git/tree/f4dc9f9d68bddaa206b69
 
 Unzip, untar, move the snapshot.
 ```commandline
-gunzip blender...
-tar -xf blender...
-mv blender ... blender-git
+gunzip <blender...>
+tar -xf <blender...>
+mv <blender...> blender-git
 ```
 Get tools to build.
 ```commandline
@@ -52,5 +52,10 @@ cd blender-git
 
 Install Cmake
 ```commandline
-sudo apt install cmake cmake-curses-gui
+sudo apt install cmake cmake-curses-gui, cmake-qt-gui
+```
+
+Make the module using the bpy target.
+```commandline
+make bpy
 ```
