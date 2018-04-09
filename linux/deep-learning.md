@@ -130,8 +130,9 @@ sudo tar xf <pycharm-download-name> -C /opt/
 
 Run and pin to the tool bar.  
 ```commandline
-./opt/<pycharm>/bin/pycharm.bin
+./opt/<pycharm>/bin/pycharm.sh
 ```
+This will also give you a chance to add charm to the path.
 
 #Nvidia CUDA
 
