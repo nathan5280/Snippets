@@ -57,5 +57,13 @@ sudo apt install cmake cmake-curses-gui, cmake-qt-gui
 
 Make the module using the bpy target.
 ```commandline
-make bpy
+sudo make bpy
 ```
+
+
+Fake module for code completion ni PyCharm
+```commandline
+https://github.com/nutti/fake-bpy-module
+```
+
+https://gist.github.com/alexlee-gk/3790bf5916649082d9d6
