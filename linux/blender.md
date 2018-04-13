@@ -67,3 +67,28 @@ https://github.com/nutti/fake-bpy-module
 ```
 
 https://gist.github.com/alexlee-gk/3790bf5916649082d9d6
+
+# Installing site-packages
+With Conda / ipython load module and see where it loads from.  Make sure the virtual environment
+interpreter matches blender's.
+
+Virtual Env
+python --version
+... 3.5.3 ...
+
+
+Blender
+import sys
+sys.version
+
+... 3.5.3
+
+import module_name
+module_name.__file__
+
+It should be loading from somewhere in site-packages under the conda virtual environment.
+
+In script:
+
+import sys
+sys.path.append("<virtual-env>.site-packages")
