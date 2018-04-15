@@ -92,3 +92,7 @@ In script:
 
 import sys
 sys.path.append("<virtual-env>.site-packages")
+
+or 
+
+set PYTHONPATH to include <virtual-env>.sit-packages
