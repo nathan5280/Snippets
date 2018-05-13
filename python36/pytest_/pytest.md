@@ -14,6 +14,20 @@ head the way I did when I tried to sort out that resulting error messages.
 the files in a project and identify the testing code and run it automatically without the need for you to explicitly
 call any of the tests yourself.
 
+##Code Coverage and Code Profiling
+If you are using PyCharm Professional, this is a good time to try out code coverage and profiling.  This test suite
+is nice because it has 100% coverage of the application and the test code.  Pay attention in **test_yield.py** 
+to the jam_tmp_dir test fixture.  This fixture and the test_tmp_exists test case were created to test the second
+line of this code.
+
+```python
+if os.path.exists(tmp_dir_path):
+    shutil.rmtree(tmp_dir_path)
+```
+
+If everything runs fine in the test suite the temporary directory should never exist.  The jam_tmp_dir fixture
+creates the directory so this line of code can be tested and deliver 100% code coverage.
+
 ## app1_basics
 **pytest_.app1_basic.wallet.py:** Application code for a simple Wallet that we can add and subract money from.
 This is the class that some of the tests will run against.
