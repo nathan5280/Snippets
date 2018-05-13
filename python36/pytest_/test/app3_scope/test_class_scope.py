@@ -9,7 +9,7 @@ def expensive_setup():
 
     :return: Random integer.
     """
-    print("Expensive Setup...")
+    print("\nExpensive Setup...")
 
     # Do something expensive that only needs to be done once pre class.
     for _ in range(0, 100000):
@@ -27,7 +27,7 @@ def expensive_setup_class():
 
     :return: Random integer.
     """
-    print("Expensive Setup...")
+    print("\nExpensive Setup (class)...")
 
     # Do something expensive that only needs to be done once pre class.
     for _ in range(0, 100000):

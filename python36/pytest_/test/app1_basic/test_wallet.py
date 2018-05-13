@@ -1,7 +1,6 @@
 import pytest
 from pytest_.app1_basic.wallet import Wallet
 from pytest_.app1_basic.insufficient_amount_exception import InsufficientAmountException
-import pytest_.test.app1_basic.conftest
 
 """
 PyTest Fixtures are a simple way to extract boiler plate code that is used in several different test cases
