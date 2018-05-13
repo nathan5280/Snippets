@@ -1,4 +1,4 @@
-import argparse, sys, json
+import argparse_, sys, json
 from requests import get, put, post
 
 def main(argv):
@@ -9,7 +9,7 @@ def main(argv):
 
     Returns: None
     '''
-    parser = argparse.ArgumentParser(description='Business Predictor')
+    parser = argparse_.ArgumentParser(description='Business Predictor')
 
     # IP:port of the business predictor server.
     parser.add_argument('-i', dest='ip', required=True,

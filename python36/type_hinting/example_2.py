@@ -1,6 +1,6 @@
 # Examples for using type hinting in PyCharm
 from typing import List
-from python.type_hinting.classes import ChildClass, BaseClass
+from python.type_hinting.classes import SubClassA, BaseClass
 
 
 def hello_world(location: str) -> None:
@@ -19,15 +19,6 @@ def parameter_type():
 def return_type():
     # Warning for assigning a return value from a function that has no return value.
     junk = hello_world('1')
-    print(junk)
-
-
-def return_type_type():
-    x = 1  # type: int
-    print(x)
-
-    x = hello_world_return('1')
-    print(x)
 
 
 def variable_not_used():
@@ -35,23 +26,26 @@ def variable_not_used():
     unused_variable = 1
 
 
-def type_check_class(o: ChildClass) -> None:
-    o.announce()
-
-
-def argument_class1():
-    # Expect ChildClass passing string
-    type_check_class('1')
-
-
 def argument_class2():
-    ob = BaseClass()
-    # Expect ChildClass passing BaseClass
-    type_check_class(ob)
+    def type_check_sub_class(o: SubClassA) -> None:
+        o.indexed_announce()
 
-    oc = ChildClass()
-    # Expected ChildClass passing ChildClass
-    type_check_class(oc)
+    def type_check_base_class(o: BaseClass) -> None:
+        o.indexed_announce()
+
+    obj = BaseClass(1)
+    # Expect SubClassA passing BaseClass
+    type_check_sub_class(obj)
+
+    # Good
+    type_check_base_class(obj)
+
+    obj = SubClassA(2)
+    # Good
+    type_check_sub_class(obj)
+
+    # Good
+    type_check_base_class(obj)
 
 
 def variable_type():
@@ -60,5 +54,11 @@ def variable_type():
     # Expected int but argument is string
     li.append('string')
 
+    # Good
+    li.append(1)
+
     # Expected string but argument is int
     ls.append(1)
+
+    # Good
+    ls.append('1')
