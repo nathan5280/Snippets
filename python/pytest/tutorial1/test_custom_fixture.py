@@ -1,6 +1,6 @@
-import pytest
+import pytest_
 
-@pytest.fixture
+@pytest_.fixture
 def prime_list():
     primes = (1,2,3,5,7,11,13)
     return primes

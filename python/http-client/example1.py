@@ -37,7 +37,7 @@ def case5():
 def case6():
     # Headers are added as a dictionary.
     url = 'https://api.github.com/events'
-    headers = {'user-agent': 'my-app/0.0.1'}
+    headers = {'user-agent': 'my-app1_basic/0.0.1'}
     r = requests.get(url, headers=headers)
 
 

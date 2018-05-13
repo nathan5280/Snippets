@@ -1,16 +1,16 @@
 import requests
 import json
-import pytest
+import pytest_
 import os
 
 
-@pytest.fixture()
+@pytest_.fixture()
 def host():
     """Valid host for tests"""
     return 'http://localhost:5000'
 
 
-@pytest.yield_fixture(autouse=True)
+@pytest_.yield_fixture(autouse=True)
 def clear_db(host):
     end_point_url = '/'.join((host, 'clear'))
     r = requests.delete(end_point_url)

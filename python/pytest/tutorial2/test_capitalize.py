@@ -1,5 +1,5 @@
 # https://semaphoreci.com/community/tutorials/testing-python-applications-with-pytest
-import pytest
+import pytest_
 
 
 def capital_case(x):
@@ -20,5 +20,5 @@ def test_capital_case2():
 
 def test_wrong_type():
     # Check for passing something other than a string.
-    with pytest.raises(TypeError):
+    with pytest_.raises(TypeError):
         capital_case(1)
