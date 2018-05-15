@@ -1,3 +1,17 @@
+"""
+This is a less trivial example of using parallel processing.  It demonstrates some of the
+things to watch out for when parallelizing code.
+
+This application creates a queue of the next level of directories in a tree search from a given root directory.
+The parallel code runs efficiently to process all directories currently in the queue.  As the queue is completed
+less and less processes can run and the efficiency drops off.  When all the process have finished processing
+their results, the next level of directories, are added to the queue and all the threads are kicked off to
+process the new queue.
+
+It is important to understand that with the joblib library no results are returned until all the processes have
+completed.  There may be better ways to deal with this using lower level parallel processing, but with the
+simplicity of joblib the entire set of process need to finish first.
+"""
 import glob
 import os
 import time
@@ -68,7 +82,7 @@ class ClimbTree:
         # If there isn't enough CPU bound work to do in the process
         # then the overhead of starting the process overwhelms the
         # benefit and you should just stick with single process version.
-        _ = [n**0.5 for n in range(50000000)]
+        _ = [n ** 0.5 for n in range(50000000)]
         return dirs
 
     def run_single_process(self, dir_: str) -> None:
