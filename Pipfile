@@ -9,6 +9,7 @@ name = "pypi"
 ipython = "*"
 pytest = "*"
 coverage = "*"
+joblib = "*"
 
 [requires]
 python_version = "3.6"
