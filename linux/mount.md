@@ -42,3 +42,15 @@ sudo blkid -o full -s PARTLABEL -s UUID
 /dev/nvme0n1p3: PARTLABEL="Microsoft reserved partition"
 ```
 
+XPS
+EFI: p1
+? : p2
+16.04: p3
+tmp: p5
+var: p6
+home: p7
+projects: p8
+data: p9
+swap: p4
+
+nathan-admin
