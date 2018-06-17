@@ -1,0 +1,40 @@
+{
+    "title": "Person",
+    "type": "object",
+    "properties": {
+        "firstName": {
+            "type": "string"
+        },
+        "lastName": {
+            "type": "string"
+        },
+        "age": {
+            "description": "Age in years",
+            "type": "integer",
+            "minimum": 0
+        },
+        "dogs": {
+            "type": "array",
+            "items": {"type": "string"},
+            "maxItems": 4
+        },
+        "address": {
+            "title": "Address",
+            "type": "object",
+            "properties": {
+                "street": {"type": "string"},
+                "city": {"type": "string"},
+                "state": {"type": "string"}
+                },
+            "required":["street", "city"]
+            },
+        "gender": {
+            "type": "string",
+            "enum": ["male", "female"]
+        },
+        "deceased": {
+            "enum": ["yes", "no", 1, 0, "true", "false"]
+            }
+    },
+    "required": ["firstName", "lastName"]
+}
