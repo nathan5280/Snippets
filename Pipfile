@@ -10,7 +10,11 @@ ipython = "*"
 pytest = "*"
 coverage = "*"
 joblib = "*"
+<<<<<<< HEAD
 python-jsonschema-objects = "*"
+=======
+sqlalchemy = "*"
+>>>>>>> dev
 
 [requires]
 python_version = "3.6"
