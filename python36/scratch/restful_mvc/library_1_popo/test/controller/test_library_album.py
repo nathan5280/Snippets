@@ -1,6 +1,5 @@
 import pytest
 
-from model.artist import Artist
 from model.album import Album
 
 

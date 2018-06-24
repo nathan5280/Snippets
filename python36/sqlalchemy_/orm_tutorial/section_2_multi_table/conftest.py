@@ -6,7 +6,7 @@ from .base_model import Base
 from .user import User
 from .address import Address
 
-Session = None
+_Session = None
 
 
 @pytest.fixture
