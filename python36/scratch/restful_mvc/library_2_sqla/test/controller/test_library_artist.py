@@ -1,8 +1,8 @@
 import pytest
 
-from model.artist import Artist
+from controller.exc.already_exists_exception import AlreadyExistsException
 from controller.session_scope import session_scope
-from controller.already_exists_exception import AlreadyExistsException
+from model.artist import Artist
 
 
 def test_add_artist(library, first_artist):
@@ -70,7 +70,7 @@ def test_delete_artist(library_one_artist, first_artist):
         assert not artist
 
 
-def test_list_artist(library_one_artist, first_artist):
+def test_list_artist(library_one_artist):
     # given
     library = library_one_artist
 
@@ -80,4 +80,3 @@ def test_list_artist(library_one_artist, first_artist):
 
         # expect
         assert 1 == len(artists_result)
-

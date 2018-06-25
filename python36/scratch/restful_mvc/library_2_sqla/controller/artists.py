@@ -2,8 +2,8 @@ from typing import List, Union
 
 from sqlalchemy.exc import IntegrityError
 
-from controller.already_exists_exception import AlreadyExistsException
-from model import DirectDB as DB
+from controller.exc.already_exists_exception import AlreadyExistsException
+from model import DirectDB as Db
 from model.artist import Artist
 
 
@@ -19,14 +19,14 @@ class Artists:
     @staticmethod
     def create(*, artist: Artist) -> None:
         try:
-            DB.session.add(artist)
-            DB.session.commit()
-        except IntegrityError as e:
+            Db.session.add(artist)
+            Db.session.commit()
+        except IntegrityError:
             raise AlreadyExistsException(f"Artist '{artist.name}' already exists in Library.")
 
     @staticmethod
     def read(*, name: str) -> Union[Artist, None]:
-        artists_result = DB.session.query(Artist).filter(Artist.name == name).one_or_none()
+        artists_result = Db.session.query(Artist).filter(Artist.name == name).one_or_none()
 
         return artists_result
 
@@ -35,10 +35,10 @@ class Artists:
         artist = Artists.read(name=name)
 
         if artist:
-            DB.session.delete(artist)
+            Db.session.delete(artist)
 
     @staticmethod
     def list() -> List[Artist]:
-        artists_result = DB.session.query(Artist).all()
+        artists_result = Db.session.query(Artist).all()
 
         return artists_result

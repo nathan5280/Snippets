@@ -2,42 +2,30 @@ from typing import List, Union
 
 from sqlalchemy.exc import IntegrityError
 
-from controller.already_exists_exception import AlreadyExistsException
-from controller.not_found_exception import NotFoundException
-from model import DirectDB as DB
+from controller.exc.already_exists_exception import AlreadyExistsException
+from controller.exc.not_found_exception import NotFoundException
+from model import DirectDB as Db
 from model.album import Album
 from model.artist import Artist
 
 
 class Albums:
-    # Albums
-    # Add/Create Artist.name, Album
-    # Get/Lookup Artist.name, Album
-    # Put/Update Artist.name, Album (Hold off on this for now.)
-    # Delete Artist.name, Album
-
-    # List Artist.name
-
-    # Get/Lookup Album.name
-
     @staticmethod
     def create(*, artist_name: str, album: Album) -> None:
-        # ToDo: Decide if Albums should know about library to get access to Artists.
-        # This will require all of the static methods to become instance methods with self.
-        # There will also need to be an __init__ method.  This also applies to Artists.
-        artist_working = DB.session.query(Artist).filter(Artist.name == artist_name).one()
+        artist_working = Db.session.query(Artist).filter(Artist.name == artist_name).one_or_none()
+
         if not artist_working:
-            raise NotFoundException(f"Artist '{aritst_name}' not found in Library.")
+            raise NotFoundException(f"Artist '{artist_name}' not found in Library.")
 
         try:
             artist_working.albums.append(album)
-            DB.session.commit()
+            Db.session.commit()
         except IntegrityError:
             raise AlreadyExistsException(f"Artist '{artist_name}', Album '{album.name}' already exists in Library.'")
 
     @staticmethod
     def read(*, artist_name: str, name: str) -> Union[Album, None]:
-        albums_result = (DB.session.query(Album).
+        albums_result = (Db.session.query(Album).
                          join(Album.artist).
                          filter(Artist.name == artist_name).
                          filter(Album.name == name).
@@ -47,13 +35,17 @@ class Albums:
         return albums_result
 
     @staticmethod
-    def delete(*, artist: Artist, name: str) -> None:
-        DB.session.delete(artist)
+    def delete(*, artist_name: str, name: str) -> None:
+        album = Albums.read(artist_name=artist_name, name=name)
 
-    def list(self, *, artist: Artist) -> List[Album]:
-        albums_result = (DB.session.query(Album).
+        if album:
+            Db.session.delete(album)
+
+    @staticmethod
+    def list(*, artist_name: str) -> List[Album]:
+        albums_result = (Db.session.query(Album).
                          join(Album.artist).
-                         filter(Artist.name == artist.name).
+                         filter(Artist.name == artist_name).
                          all()
                          )
 
