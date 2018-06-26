@@ -2,17 +2,15 @@ import pytest
 from flask import Flask
 from flask.testing import FlaskClient
 
-from library_app import LibraryApp
+from calculator_server import CalculatorServer
 
 
 @pytest.fixture
 def app() -> Flask:
-    app = LibraryApp()
-
+    app = CalculatorServer()
     return app.app
 
 
 @pytest.fixture
 def client(app: Flask) -> FlaskClient:
-
     return app.test_client()

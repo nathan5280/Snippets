@@ -1,26 +1,19 @@
 [[source]]
-verify_ssl = true
 url = "https://pypi.org/simple"
+verify_ssl = true
 name = "pypi"
 
 [dev-packages]
 
 [packages]
 ipython = "*"
-pytest = "*"
-coverage = "*"
 joblib = "*"
-<<<<<<< HEAD
-python-jsonschema-objects = "*"
-=======
-sqlalchemy = "*"
-<<<<<<< HEAD
->>>>>>> dev
-=======
-flask = "*"
-flask-sqlalchemy = "*"
+pytest = "*"
 flask-restful = "*"
->>>>>>> dev
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+requests = "*"
+python-jsonschema-objects = "*"
 
 [requires]
 python_version = "3.6"
