@@ -8,7 +8,6 @@ class Calculator(Resource):
     @staticmethod
     def get(operation):
         req_data = request.get_json()
-        print("Req Data:", req_data)
 
         if "add" == operation:
             result = CalculatorModel.add(**req_data)
