@@ -38,6 +38,7 @@ class Artist(Base):
             Db.session.add(self)
             Db.session.commit()
         except IntegrityError as e:
+            Db.session.rollback()
             raise AlreadyExistsException(f"Artist '{self.name}' already exists in Library.")
 
     def delete(self) -> None:
