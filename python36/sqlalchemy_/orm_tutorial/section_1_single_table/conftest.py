@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from .user import Base as user_base
 from .user import User
 
-Session = None
+_Session = None
 
 
 @pytest.fixture

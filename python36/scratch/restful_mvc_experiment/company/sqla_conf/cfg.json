@@ -1,0 +1,18 @@
+{
+  "mode": "Direct",
+  "production": false,
+  "flask_prod": {
+    "SQLALCHEMY_DATABASE_URI": "sqlite:////tmp/test.db",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": false
+  },
+  "flask_test": {
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": false
+  },
+  "direct_prod": {
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:"
+  },
+  "test_test": {
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:"
+  }
+}
