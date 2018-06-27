@@ -25,7 +25,9 @@ Production:
     False: Use the configuration parameters from [flask|direct]_test.
 """
 import json
+import os
 
+print(os.getcwd())
 # ToDo: Pull the configuration path from somewhere other than the code.  Environment variable?
 with open("sqla_conf/cfg.json", 'rt') as fp:
     cfg = json.load(fp)

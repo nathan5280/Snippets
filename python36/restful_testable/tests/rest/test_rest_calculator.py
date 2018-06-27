@@ -1,7 +1,8 @@
 from flask.testing import FlaskClient
+from auth.authorize_wrapper import authorize
 
 
-def test_add(client: FlaskClient) -> None:
+def test_add(client: FlaskClient, auth_token: str) -> None:
     # given
     a = 1
     b = 2
@@ -10,7 +11,7 @@ def test_add(client: FlaskClient) -> None:
     url = f"/calculator/add"
 
     # execute
-    resp = client.get(url, json=req_data)
+    resp = authorize(client.get, url, auth_token=auth_token, json=req_data)
 
     # expect
     assert 200 == resp.status_code
