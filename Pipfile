@@ -15,6 +15,7 @@ flask-sqlalchemy = "*"
 requests = "*"
 python-jsonschema-objects = "*"
 flask-jwt = "*"
+sphinx = "*"
 
 [requires]
 python_version = "3.6"
