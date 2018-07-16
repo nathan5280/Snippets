@@ -8,6 +8,13 @@ name = "pypi"
 [packages]
 pytest = "*"
 ipython = "*"
+flask = "*"
+flask-jwt = "*"
+celery = "*"
+flask-restful = "*"
+sqlalchemy = "*"
+requests = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.6"
