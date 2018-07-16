@@ -11,8 +11,12 @@ class CalculatorServer:
         self.app = Flask(__name__)
         self._api = Api(self.app)
 
-        # Expose the single add endpoint.
+        # Expose the calculator endpoint.
+        # Request a new calculator be created.
         self._api.add_resource(Calculator, '/calculator/v0')
+
+        # Access the operations on the calculator based on the calculator location url return when
+        # the calculator was requested.  (push, add, sub, result, delete)
         self._api.add_resource(CalculatorOper, '/calculator/v0/<int:calc_id>')
 
     def run(self):

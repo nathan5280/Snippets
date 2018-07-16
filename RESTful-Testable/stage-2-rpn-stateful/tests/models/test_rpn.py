@@ -1,6 +1,7 @@
 import pytest
 
 # ToDo: Sort out the PyTest import mechanism inorder to import ModelDataClass to use for type hinting.
+# ModelDataClass = namedtuple('ModelData', ('calc', 'calc_id'))  From conftest model fixture.
 # from .conftest import ModelDataClass
 from models import OperandError, InvalidContextError
 

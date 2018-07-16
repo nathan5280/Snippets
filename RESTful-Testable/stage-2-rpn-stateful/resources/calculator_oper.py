@@ -1,4 +1,5 @@
-from flask_restful import Resource, reqparse, request
+from flask_restful import Resource, reqparse
+
 from models import RPNCalculator, InvalidContextError, OperandError
 
 
@@ -46,4 +47,4 @@ class CalculatorOper(Resource):
     @classmethod
     def delete(cls, calc_id: int):
         """Remove the Calculator"""
-        cls.calculator.start()
+        cls.calculator.delete(id_=calc_id)

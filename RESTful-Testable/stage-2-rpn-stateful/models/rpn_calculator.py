@@ -57,3 +57,8 @@ class RPNCalculator:
             return result
         except IndexError:
             raise OperandError("Stack empty.")
+
+    @classmethod
+    def delete(cls, id_: int) -> None:
+        """Delete the calculation."""
+        cls.start()

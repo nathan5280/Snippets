@@ -7,6 +7,7 @@ ModelDataClass = namedtuple('ModelData', ('calc', 'calc_id'))
 
 @pytest.fixture
 def model() -> ModelDataClass:
+    """Create a new calculator and start a new calculation."""
     calc = RPNCalculator()
     calc_id = calc.start()
 

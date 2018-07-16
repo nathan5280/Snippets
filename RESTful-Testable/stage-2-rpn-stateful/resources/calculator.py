@@ -9,7 +9,7 @@ class Calculator(Resource):
 
     @classmethod
     def post(cls):
-        """Request addition of the two numbers."""
+        """Request a new calculator."""
         id_ = cls.calculator.start()
 
         url = f"/calculator/v0/{id_}"

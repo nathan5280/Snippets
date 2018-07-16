@@ -117,7 +117,7 @@ This stage was developed using the following workflow:
 1. Implement resources/calculator.py and server/calculator_server.py
 1. Integration test the RESTful API with tests/restful/test_rest_calculator.py
 
-All other implemnetation direct.py, client.py, server.py and their corresponding unit tests were done to show
+All other implementation direct.py, client.py, server.py and their corresponding unit tests were done to show
 how the functionality will ultimately be deployed and ways to use PyTest to validate their deployment.
 
 It is recommended the above process be used for development and testing of Flask based RESTful APIs wrapped around
@@ -129,4 +129,56 @@ The AddCalculator was pretty darn boring, but it provides a foundation for how t
 API that wraps around them.  Let's build a more complicated RPNCalculator that has to manage state (Stack of Operands),
 the beginning and end of a calculation across multiple operations.  We'll keep it simple by only implementing
 the addition and subtraction operations.
+
+### Development Steps
+1. Implement the RPNCalculator model.  
+   1. Break out the Stack in preparation for moving this functionality to the database in Stage 3.
+   1. Factor out the binary_op functionality as writing the add operator and then the sub operator immediately
+   showed most of the code was duplicated between them.
+   1. Add the concept of the calculation id.  This will allow the persistent storage of the stacks in the 
+   db in Stage 3.  It also drives additional lifecycle interactions with the model.
+      1. Calculations must call start to get a new stack with a unique id.
+      1. All calls to operators for the calculation must take this id.
+      1. The server is still stateful in the sense that it has the stack in memory, but now it is straight 
+      forward to move the stack to the DB and completely move the state out of the server.  The start method
+      creates the unique id which will be part of the location url returned in the RESTful API.
+1. Test the model.
+   1. The model test fixture needs to return two pieces of information to the tests.  It creates a new 
+   RPNCalculator object and calls start on it to get the ID of the calculation.  To allow dotted access
+   to this information in the test case a namedtuple is used.  This creates a new data only class (ModelData)
+   that is returned by the fixture.
+   1. The model test cases are written in the same way that the Stage 1 model test cases were developed.  
+      1. There are test cases now that test the failure modes on the stack.  There are basically ones
+      where the state of the stack is wrong and those where the ID of the calculation is wrong.  The 
+      former are captured with the OperandError and the latter with InvalidContextError.
+      1. Review the code coverage in the model classes.  This can show where additional tests
+      are required.  Code coverage doesn't insure that all paths through the code have been
+      tested, but code that hasn't been tested is suspect.
+1. Implement the Resources and Server.
+   1. /calculator - POST is used to create the new calculator.  POST is used when the client
+   doesn't know the url of the resource that is being created and the server will generate it.
+   1. /calculator/\<int:calc_id> - PUT, data={operator, operand}, operator=(push, add, sub) 
+   is used for the operators that change the state of the calculator
+   1. /calculator/\<int:calc_id> - GET, returns the result or top most operand in the stack.
+   1. /calculator/\<int:calc_id> - DELETE removes the stack from the calculator.  In Stage 3 
+   this will be used to clean up the database.  
+1. Test the RESTful API
+   1. Focus the test on the RESTful interface and not all of the functionality of the model.
+   1. Review the code coverage in the two resource files for feedback on where more tests
+   are needed.
+   
+### Summary
+Stage 2 showed how new functionality can be developed by following the 4 step process introduced in Stage 1
+to create a more complex model and API.  Unit tests are in place for both the model and the API with good 
+separation of concerns for the functionality and unit tests.  100% code coverage for the model and API was 
+achieved with 18 tests that run in less than 1/5 of a second.  Not surprisingly there is substantially more 
+test code than model or resource code.  The good news is that after the first couple of tests are written
+the rest are fairly easy to implement.  There are many PyTest recipes to help reduce the amount of this
+code.
+
+| Functionality | Implementation | Test |
+|:--------------|---------------:|-----:|
+| Model         | 97             | 182  |
+| Resources     | 66             | 99   |
+ 
 
