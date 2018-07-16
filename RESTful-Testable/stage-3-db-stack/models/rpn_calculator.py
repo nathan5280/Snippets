@@ -1,18 +1,20 @@
 from typing import Callable
 
-from models.db_stack import _Operand
+# from models.stack import Stack
+from models.db_stack import Stack as Stack
 from models import OperandError
 
 
 class RPNCalculator:
     """Simple RPN calculator built around an in memory stack."""
-    stack = None
+    # stack = None
+    stack = Stack()
 
     @classmethod
     def start(cls):
         """Start a new calculation with a fresh stack."""
-        cls.stack = _Operand()
-        return cls.stack.id_
+        # return cls.stack.id_
+        return cls.stack.start()
 
     @classmethod
     def push(cls, operand: float, id_: int) -> float:
@@ -61,4 +63,5 @@ class RPNCalculator:
     @classmethod
     def delete(cls, id_: int) -> None:
         """Delete the calculation."""
-        cls.start()
+        # cls.start()
+        cls.stack.delete(id_=id_)

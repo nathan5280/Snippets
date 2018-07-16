@@ -180,5 +180,52 @@ code.
 |:--------------|---------------:|-----:|
 | Model         | 97             | 182  |
 | Resources     | 66             | 99   |
+
+On to Stage 3.  Lets see how little code we have to modify to move Stack to the DB.
+
+## Stage-3 Converting the Stack to a DB
+Implement a Stack that hold Operands in the DB using SQLAlchemy and replace the Stack in the RPNCalculator turns out
+to be pretty straight forward.  
+
+### Development Steps
+1. Implement db.py to handle the table creation, connetion and session management for the implementation.
+   1. Define the declarative base used for ORM.
+   1. create_db - Connect and create the datbase.
+   1. Implement session_scope context manger to make sure all sessions are correctly committed, rolled back and closed.
+1. Implement db_stack.py
+   1. This is standard sqlalchemy implementaiton of an Operand class that has a foreign key relationship
+   to a table of Stack.  Stacks are started and all operators are implemented using the ID for that stack.
+   1. Currently the client is responsible for cleaning up the stack when the calculation is complete.  There 
+   should probably be garbage collection of calculations that are abandoned by the client to keep the DB
+   from filling up.
+1. Test the Stack DB implementation.
+   1. For the db test fixture that creates the db before each test that the autouse=True is passed to the
+   pytest.fixture decorator so that it is run before each test without having to list it in the arguments for
+   each test. 
+   
+   There are other arguments that can control the scope that the fixture is run within.  If the tests are 
+   bundled into a class then the fixture could be run once for test class.
+   1. For the db test fixture it uses a yield statement to return the calc_id when the calculation has been started.
+   After the test completes contol is returned to the fixture and the calculation is deleted.  This is a good 
+   way to make sure that resources are closed and freed as part of the testing process.
+1. Modify the implementation of the RPNCalculator.  This worked out pretty well with only a few minor changes.
+   1. Update the import so that it points to the new implementation.  We could have skipped this if we had
+   named the DBStack the same as the original Stack.
+   1. Replace the initialization of the RPNCalculator class scope stack with an instance of the DB Stack.  We only
+   need to do this once instead of everytime we created a Calculator.  This is what we want.  Now the 
+   RPNCalculator has no state information and can run in a multi-client/multi-server deployment model.
+   1. Update the start method.  No need to to manage the state of the internal Stack.
+   1. Update the delete method to call delete on the DB Stack.
+1. Run the unit tests.   
+    1. The RESTful API tests all pass with zero modification. Perfect.
+    1. Check the code coverage and implement any additional tests that are needed.
+
+### Comments
+I've used SQLAlchemy straight out of the box vs. using the flask-sqlalchemy package.  Flask-sqlalchemy has 
+some nice integration features that manage sessions for each invocation of an endpoint, but it also makes it
+difficult to do model testing independently of Flask.  The primary problem is that the base class used to 
+create ORM classes is different for sqlalchemy and flask-sqlalchemy.  It is possible to use some Python
+black magic to change the base class depending on whether the class is used without Flask or with Flask.  In the
+end it isn't worth the complexity and you have to manage the session explicity in the model either way.
  
 
