@@ -228,4 +228,47 @@ create ORM classes is different for sqlalchemy and flask-sqlalchemy.  It is poss
 black magic to change the base class depending on whether the class is used without Flask or with Flask.  In the
 end it isn't worth the complexity and you have to manage the session explicity in the model either way.
  
+## Stage-4 JWT Authentication
+Wrap the calculator start endpoint with JWT authentication so only authorized users can create a new calculator.
 
+### Development Steps
+1. Implement a basic user class.  This would obviously have a more robust and secure implementation with hashing
+of passwords and a non-memory based user list.  The simple implementation allows for users to be looked up by
+username or ID.
+1. Implement the 'authenticate' and 'identity' functions in authenticate.py used by Flask-JWT 
+to authenticate and identify users.
+1. Update the server to initialize JWT.  Here again the secret_key needs a better production home.  Initialize
+JWT with the above mentioned 'authenticate' and 'identity' functions.
+1. Decorate the appropriate methods with '@jwt_required()'. **!!!!!!! Note that the decorator has () at the end.
+without this you get a very difficult error to track down. !!!!!!!**  If you get an stack trace that ends with 
+something like this,
+```commandline
+  File "/usr/lib/python3.6/json/encoder.py", line 180, in default
+    o.__class__.__name__)
+  TypeError: Object of type 'function' is not JSON serializable
+```
+
+then you probably are missing the ().  If you use flask_jwt_extended then it doesn't required the ().  
+You've been warned.
+
+1. Leverage the auth.client.authorize() wrapper method to simplify adding the authorization to the header 
+for all the API calls.
+```python
+    url = '/calculator/v0'
+    response = authorize(client.post, url, auth_token=auth_token, json={})
+```
+1. Add a pytest.fixture to conftest.py to get that authentication token.
+```python
+@pytest.fixture
+def auth_token(client: FlaskClient):
+    url = "auth"
+
+    response = client.post(url, json={"username": "peter", "password": "123"})
+    assert 200 == response.status_code
+    return response.get_json()["access_token"]
+```
+
+### Summary
+1. OK, the authentication is pretty minimalist, but it makes it pretty simple after it is setup.  There is clearly
+a need for user management, password resets, role based access and operations that are all supported through 
+flask_jwt or flask_jwt_extened.
