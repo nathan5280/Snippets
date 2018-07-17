@@ -1,10 +1,9 @@
 """Client to invoke the add function in the Calculator Server through the RESTful API"""
 
 import requests
-from models import NumberType
 
 
-def test_add(x: NumberType, y: NumberType) -> NumberType:
+def test_add(x: float, y: float) -> float:
     # given
     url = 'http://localhost:5000/calculator'
     data = {'x': x, 'y': y}

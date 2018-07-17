@@ -1,7 +1,7 @@
 from models import AddCalculator
 
 
-def test_add_pass(calculator: AddCalculator):
+def test_add_pass():
     """
     Test the AddCalculator model directly.
     """
@@ -9,7 +9,7 @@ def test_add_pass(calculator: AddCalculator):
     x, y = 1, 2
 
     # when (add numbers)
-    result = calculator.add(x=x, y=y)
+    result = AddCalculator.add(x=x, y=y)
 
     # then
     assert x + y == result

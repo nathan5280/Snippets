@@ -1,15 +1,9 @@
 import pytest
 
-from models.db import create_db, session_scope
+from models.db import session_scope
 from models.db_stack import Stack, _Operand
 
 operand_data = [1, 2]
-
-
-@pytest.fixture(autouse=True)
-def db():
-    """Create and empty DB"""
-    create_db(connection_string='sqlite:///:memory:')
 
 
 @pytest.fixture

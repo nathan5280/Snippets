@@ -1,10 +1,7 @@
-from models import NumberType
-
-
 class AddCalculator:
     """Simple calculator that can add two numbers together."""
 
     @staticmethod
-    def add(*, x: NumberType, y: NumberType) -> NumberType:
+    def add(*, x: float, y: float) -> float:
         """Add two numbers and return result."""
         return x + y

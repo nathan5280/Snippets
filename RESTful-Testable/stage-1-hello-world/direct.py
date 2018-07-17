@@ -1,9 +1,9 @@
 """Run the model by direct function invocation."""
 
-from models import AddCalculator, NumberType
+from models import AddCalculator
 
 
-def test_add(x: NumberType, y: NumberType) -> NumberType:
+def test_add(x: float, y: float) -> float:
     # given
     calculator = AddCalculator()
 
