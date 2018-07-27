@@ -1,4 +1,4 @@
-from google.cloud import storage
+from gclients.cloud import storage
 
 # Using credentials in file specified by GOOGLE_APPLICATION_CREDENTIALS environment variable.
 

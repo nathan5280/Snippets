@@ -8,6 +8,9 @@ google-cloud-storage = "*"
 google-api-python-client = "*"
 requests = "*"
 googlemaps = "*"
+ipython = "*"
+pytest = "*"
+coverage = "*"
 
 [dev-packages]
 
