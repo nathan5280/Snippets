@@ -9,7 +9,7 @@ sudo dpkg-reconfigure console-setup
 
 Choose:
 * UTF-8
-* Guess optimale character set
+* Guess optimal character set
 * Let the system select a suitable font
 * 16x32
 
